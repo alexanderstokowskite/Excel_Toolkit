@@ -1,10 +1,11 @@
 import tkinter as tk
-from tkinter import filedialog, ttk, messagebox, Toplevel
+from tkinter import filedialog, ttk, messagebox, Toplevel, simpledialog, Button, Label
 import pandas as pd
 import os
 import platform
 from Claas_CSV import CSVLoader
 from DataFrameToExcel import DataFrameToExcel as DFEClass
+import subprocess
 
 global select_xlsx_path
 select_xlsx_path = None
@@ -39,14 +40,53 @@ def run_sequence_excel():
     global df_selected
     processor = ExcelProcessor(master=root)
     df_selected = processor.main()
-    #processor.main()
-    #select_xlsx_path = processor.get_save_path()
     processor.close()
     
-    app = DFEClass(df_selected, master=root)
-    print("DFEClass-Instanz erstellt")
-    #select_xlsx_path = app.get_save_path()
-    print(f"Datei gespeichert: {select_xlsx_path}")
+    # Abfrage, ob der Excel Formatter gestartet werden soll
+    def on_yes():
+        top.destroy()
+        app = DFEClass(df_selected, master=root)
+        print("DFEClass-Instanz erstellt")
+        #select_xlsx_path = app.get_save_path()
+        print(f"Datei gespeichert: {select_xlsx_path}")
+
+    def on_no():
+        top.destroy()
+        select_xlsx_path = filedialog.asksaveasfilename(initialfile="select.xlsx", defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])
+        if select_xlsx_path:
+            df_selected.to_excel(select_xlsx_path)
+            messagebox.showinfo("Information","Datei wurde gespeichert unter: " + select_xlsx_path)
+            print(select_xlsx_path)
+            return select_xlsx_path
+        
+    top = Toplevel(root)
+    top.title("Excel Formatter")
+    
+    label = Label(top, text="Do you want to launch the Excel formatter?")
+    label.pack(pady=10)
+    
+    yes_button = Button(top, text="Yes", command=on_yes)
+    no_button = Button(top, text="No", command=on_no)
+    yes_button.pack(side="left", expand=True, fill="both")
+    no_button.pack(side="right", expand=True, fill="both")
+    
+    
+    
+    
+    ##global root
+    #from Excelprocessor import ExcelProcessor
+    #global select_xlsx_path
+    #global df_selected
+    #processor = ExcelProcessor(master=root)
+    #df_selected = processor.main()
+    ##processor.main()
+    ##select_xlsx_path = processor.get_save_path()
+    #processor.close()
+    #
+    #app = DFEClass(df_selected, master=root)
+    #print("DFEClass-Instanz erstellt")
+    ##select_xlsx_path = app.get_save_path()
+    #print(f"Datei gespeichert: {select_xlsx_path}")
     
 def open_file():
     
@@ -84,6 +124,25 @@ def check_select_xlsx_path():
         # Hier könnten Sie den Button auch unsichtbar machen, wenn Sie möchten
         pass
 
+def open_file_with_default_application():
+    file_path = filedialog.askopenfilename()
+    
+    if file_path:
+        try:
+            if platform.system() == "Windows":
+                os.startfile(file_path)
+            elif platform.system() == "Darwin":
+                subprocess.call(["open", file_path])
+            elif platform.system() == "Linux":
+                subprocess.call(["xdg-open", file_path])
+            else:
+                raise EnvironmentError("Unsupported operating system")
+
+
+        except EnvironmentError as e:
+            print(e)
+    else:
+        print("Keine Datei ausgewählt")
 
 # Hauptfenster erstellen
 
@@ -106,7 +165,7 @@ function1_button.pack(anchor="nw", padx=10, pady=10)
 function2_button = tk.Button(root, text="Read CSV", command=open_csv_loader, fg="Blue", width=20, height=2)
 function2_button.pack(anchor="nw", padx=10, pady=10)
 
-function3_button = tk.Button(root, text="Chack for files", command=check_select_xlsx_path, fg="Yellow", width=20, height=2)
+function3_button = tk.Button(root, text="Check for files", command=open_file_with_default_application, fg="Darkgrey", width=20, height=2)
 function3_button.pack(anchor="nw", padx=10, pady=10)
 
 # Erstellen Sie den "Load File"-Button, aber machen Sie ihn zuerst unsichtbar

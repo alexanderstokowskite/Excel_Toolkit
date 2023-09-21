@@ -158,7 +158,7 @@ class ExcelProcessor:
                 df_filtered = self.apply_filters_from_preset(df)
                 df_selected = self.select_columns(df_filtered)
                 dir_path = os.path.dirname(self.file_path)
-                self.select_xlsx_path = os.path.join(dir_path, "select.xlsx")
+                self.select_xlsx_path = os.path.join(dir_path, "/select.xlsx")
               
         return df_selected
         
