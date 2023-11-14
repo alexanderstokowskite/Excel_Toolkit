@@ -129,14 +129,15 @@ def open_file_with_default_application():
 
 
 def compare_excel_with_ui():
-    # import compare_unique as cu
-
-    # root.destroy()
-    # cu.main()
-
     import Comp_unique_Func as cu
 
     cu.main()
+
+
+def compare_excel_line_by_line():
+    import Comp_LbL_Func as clbl
+
+    clbl.main()
 
 
 def main_window():
@@ -153,13 +154,13 @@ def main_window():
         text="Read from Excel",
         command=run_sequence_excel,
         fg="Green",
-        width=20,
+        width=22,
         height=2,
     )
     function1_button.pack(anchor="nw", padx=10, pady=10)
 
     function2_button = tk.Button(
-        root, text="Read CSV", command=open_csv_loader, fg="Blue", width=20, height=2
+        root, text="Read CSV", command=open_csv_loader, fg="Blue", width=22, height=2
     )
     function2_button.pack(anchor="nw", padx=10, pady=10)
 
@@ -168,20 +169,30 @@ def main_window():
         text="Compare Excel with UI",
         command=compare_excel_with_ui,
         fg="orange",
-        width=20,
+        width=22,
         height=2,
     )
     function3_button.pack(anchor="nw", padx=10, pady=10)
 
     function4_button = tk.Button(
         root,
-        text="Check for files",
-        command=open_file_with_default_application,
-        fg="Darkgrey",
-        width=20,
+        text="Compare Excel Line by Line",
+        command=compare_excel_line_by_line,
+        fg="Red",
+        width=22,
         height=2,
     )
     function4_button.pack(anchor="nw", padx=10, pady=10)
+
+    function5_button = tk.Button(
+        root,
+        text="Check for files",
+        command=open_file_with_default_application,
+        fg="Darkgrey",
+        width=22,
+        height=2,
+    )
+    function5_button.pack(anchor="nw", padx=10, pady=10)
 
     # Erstellen Sie den "Load File"-Button, aber machen Sie ihn zuerst unsichtbar
     open_file_button = tk.Button(

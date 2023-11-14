@@ -87,6 +87,11 @@ def compare_and_update(
             openpyxl.utils.get_column_letter(column_cells[0].column)
         ].width = adjusted_width
 
+    status_column_index = (
+        len(target_df.columns) + 1
+    )  # Die Spalte, in der "Status" steht, ist eine Spalte nach den Daten
+    sheet.auto_filter.ref = f"{sheet.cell(row=1, column=status_column_index).coordinate}:{sheet.cell(row=len(target_df) + 1, column=status_column_index).coordinate}"
+
     # Speichere die aktualisierte Datei
     updated_file = target_file.replace(".xlsx", "_updated.xlsx")
     book.save(updated_file)
@@ -186,8 +191,6 @@ def gather_inputs():
     tk.Button(dialog, text="Confirm & Execute", command=on_confirm).grid(
         row=5, column=1, padx=10, pady=10
     )
-
-    # ... Rest des Codes ...
 
     dialog.wait_window()  # Wartet, bis der Dialog geschlossen wird
     return dialog.user_inputs  # Gibt die Benutzereingaben zurück
