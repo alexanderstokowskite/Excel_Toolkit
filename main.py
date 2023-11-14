@@ -145,7 +145,7 @@ def main_window():
     clear_window(root)
     root.deiconify()
     root.title("Function Selector")
-    root.geometry("700x500+300+300")
+    root.geometry("700x400+300+300")
     root.configure(bg="#4F4F4F")
     global image
     image = tk.PhotoImage(
