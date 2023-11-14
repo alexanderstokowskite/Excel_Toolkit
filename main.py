@@ -128,6 +128,17 @@ def open_file_with_default_application():
         print("Keine Datei ausgewählt")
 
 
+def compare_excel_with_ui():
+    # import compare_unique as cu
+
+    # root.destroy()
+    # cu.main()
+
+    import Comp_unique_Func as cu
+
+    cu.main()
+
+
 def main_window():
     global file_path
     clear_window(root)
@@ -154,13 +165,23 @@ def main_window():
 
     function3_button = tk.Button(
         root,
+        text="Compare Excel with UI",
+        command=compare_excel_with_ui,
+        fg="orange",
+        width=20,
+        height=2,
+    )
+    function3_button.pack(anchor="nw", padx=10, pady=10)
+
+    function4_button = tk.Button(
+        root,
         text="Check for files",
         command=open_file_with_default_application,
         fg="Darkgrey",
         width=20,
         height=2,
     )
-    function3_button.pack(anchor="nw", padx=10, pady=10)
+    function4_button.pack(anchor="nw", padx=10, pady=10)
 
     # Erstellen Sie den "Load File"-Button, aber machen Sie ihn zuerst unsichtbar
     open_file_button = tk.Button(
