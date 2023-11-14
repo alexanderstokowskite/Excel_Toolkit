@@ -147,6 +147,13 @@ def main_window():
     root.title("Function Selector")
     root.geometry("700x500+300+300")
     root.configure(bg="#4F4F4F")
+    global image
+    image = tk.PhotoImage(
+        file="image/SWAT.png"
+    )  # Bitte ersetzen Sie "image.png" durch den tatsächlichen Pfad zu Ihrem Bild
+    # OSX pfad / - Windows Pfad mit \
+    image_label = tk.Label(root, image=image)
+    image_label.pack(side="right", fill="both", expand="yes")
 
     # Buttons "Funktion1" und "Funktion2" hinzufügen
     function1_button = tk.Button(
