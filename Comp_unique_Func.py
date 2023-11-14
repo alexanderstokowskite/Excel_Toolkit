@@ -48,9 +48,12 @@ def compare_and_update(
         row_id = row[unique_identifier]
         row_changed = False
         if row_id in source_map:
-            for col in target_df.columns:
+            for j, col in enumerate(target_df.columns):
                 if not is_equal(row[col], source_map[row_id].get(col, row[col])):
-                    # ... Code für das Aktualisieren und Färben der Zellen behalten ...
+                    # Aktualisiere die Zelle und färbe sie orange
+                    cell = sheet.cell(row=i + 2, column=j + 1)
+                    cell.value = source_map[row_id][col]
+                    cell.fill = orange_fill
                     row_changed = True
             if row_changed:
                 # Markiere die Zeile als "geändert"
