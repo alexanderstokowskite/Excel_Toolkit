@@ -137,6 +137,12 @@ def compare_excel_line_by_line():
     clbl.main()
 
 
+def add_csv_or_excel_based_on_ui():
+    import ad_on_unique_id_multi as aoui
+
+    aoui.main()
+
+
 def main_window():
     global file_path
     clear_window(root)
@@ -190,13 +196,23 @@ def main_window():
 
     function5_button = tk.Button(
         root,
+        text="Add columns based on UI",
+        command=add_csv_or_excel_based_on_ui,
+        fg="Darkred",
+        width=22,
+        height=2,
+    )
+    function5_button.pack(anchor="nw", padx=10, pady=10)
+
+    function6_button = tk.Button(
+        root,
         text="Check for files",
         command=open_file_with_default_application,
         fg="Darkgrey",
         width=22,
         height=2,
     )
-    function5_button.pack(anchor="nw", padx=10, pady=10)
+    function6_button.pack(anchor="nw", padx=10, pady=10)
 
     # Erstellen Sie den "Load File"-Button, aber machen Sie ihn zuerst unsichtbar
     open_file_button = tk.Button(
