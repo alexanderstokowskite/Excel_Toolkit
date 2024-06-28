@@ -52,9 +52,6 @@ def run_sequence_excel():
         top.destroy()
         main_window()
         app = DFTE(df_selected, master=root)
-        print("DFTEClass-Instanz beendet")
-
-        # file_path = app.get_save_path()
 
     def on_no():
         global file_path
