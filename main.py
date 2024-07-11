@@ -143,12 +143,19 @@ def add_csv_or_excel_based_on_ui():
     aoui.main()
 
 
+def csv_converter():
+    from Class.excel_to_csv_converter import ExcelToCSVConverter
+
+    converter = ExcelToCSVConverter(root)
+    converter.run()
+
+
 def main_window():
     global file_path
     clear_window(root)
     root.deiconify()
     root.title("Function Selector")
-    root.geometry("700x400+300+300")
+    root.geometry("700x450+300+300")
     root.configure(bg="#4F4F4F")
     global image
     image = tk.PhotoImage(
@@ -206,13 +213,23 @@ def main_window():
 
     function6_button = tk.Button(
         root,
+        text="CSV Exporter",
+        command=csv_converter,
+        fg="Darkblue",
+        width=22,
+        height=2,
+    )
+    function6_button.pack(anchor="nw", padx=10, pady=10)
+
+    function7_button = tk.Button(
+        root,
         text="Check for files",
         command=open_file_with_default_application,
         fg="Darkgrey",
         width=22,
         height=2,
     )
-    function6_button.pack(anchor="nw", padx=10, pady=10)
+    function7_button.pack(anchor="nw", padx=10, pady=10)
 
     # Erstellen Sie den "Load File"-Button, aber machen Sie ihn zuerst unsichtbar
     open_file_button = tk.Button(
