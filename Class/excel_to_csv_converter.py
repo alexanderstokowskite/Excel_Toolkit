@@ -33,14 +33,25 @@ class ExcelToCSVConverter:
 
         top = Toplevel(self.root)
         top.title("Select Sheets")
-        top.geometry("300x200")
+        top.geometry("400x350+1050+300")
+        top.configure(bg="lightgrey")
 
-        listbox = Listbox(top, selectmode=MULTIPLE)
+        listbox = Listbox(
+            top,
+            selectmode=MULTIPLE,
+            bg="white",
+            fg="black",
+            font=("Arial", 10),
+            bd=0,
+            highlightthickness=0,
+        )
         for name in sheet_names:
-            listbox.insert(tk.END, name)
-        listbox.pack(fill=tk.BOTH, expand=True)
+            listbox.insert(tk.END, " " * 5 + name)  # Einrückung durch Leerzeichen
+        listbox.pack(
+            fill=tk.BOTH, expand=True, padx=20, pady=20
+        )  # Einrückung durch Padding
 
-        ok_button = tk.Button(top, text="OK", command=on_ok)
+        ok_button = tk.Button(top, text="OK", command=on_ok, bg="lightgrey")
         ok_button.pack(pady=10)
 
         top.transient(self.root)
